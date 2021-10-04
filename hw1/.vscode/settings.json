@@ -1,0 +1,6 @@
+{
+  "editor.defaultFormatter": "rifi2k.format-html-in-php",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.fontSize": 17
+}
