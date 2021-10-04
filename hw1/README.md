@@ -1,1 +1,1 @@
-![alt text](https://github.com/neeeeecka/php-laravel-uni/tree/master/hw1/wp.png?raw=true)
+![alt text](https://raw.githubusercontent.com/neeeeecka/php-laravel-uni/master/hw1/wp.png)
