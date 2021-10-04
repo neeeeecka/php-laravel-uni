@@ -47,7 +47,7 @@
             <?php include("select.php") ?>
         </div>
         <div class="row">
-            <h5>ბევრი ვიწვალე რომ SSR შემენარჩუნებინა :D</h5>
+            <h5>SSR შევინარჩუნე!!! :დ</h5>
         </div>
     </div>
 
