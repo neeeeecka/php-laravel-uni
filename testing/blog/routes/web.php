@@ -1,7 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,3 +28,9 @@ Route::get('/register', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::get('/blog', [BlogController::class, "showBlog"])->name("blog");
+
+Route::get('/post/{slug}', [BlogController::class, "showPost"])->name("viewPost");
+
+// Route::get('/login', [AboutMeController::class, "show"]);
