@@ -17,18 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-
 Route::get('/blog', [BlogController::class, "showBlog"])->name("blog");
 
 Route::get('/post/{slug}', [BlogController::class, "showPost"])->name("viewPost");
