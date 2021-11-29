@@ -21,4 +21,5 @@ Route::get('/blog', [BlogController::class, "showBlog"])->name("blog");
 
 Route::get('/post/{slug}', [BlogController::class, "showPost"])->name("viewPost");
 
-// Route::get('/login', [AboutMeController::class, "show"]);
+Route::get('/blogs', [BlogController::class, "index"]);
+Route::get('/blogs/recommended', [BlogController::class, "recommended"]);

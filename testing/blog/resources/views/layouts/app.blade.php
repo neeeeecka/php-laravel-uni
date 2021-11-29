@@ -40,9 +40,9 @@
     </nav>
     <div class="container mt-2">
         <div class="row">
-            <div class="col-md-9">
-                @yield("content")
-            </div>
+
+            @yield("content")
+
             <div class="col-md-3">
                 <div class="card-body">
                     <h4 class="card-title">About</h4>
@@ -52,6 +52,8 @@
                     </p>
                 </div>
             </div>
+
+            @yield("pagination")
         </div>
     </div>
 
