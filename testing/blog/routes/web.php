@@ -2,6 +2,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PostsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', [BlogController::class, "showBlog"])->name("blog");
+// Route::get('/blog', [BlogController::class, "showBlog"])->name("blog");
 
-Route::get('/post/{slug}', [BlogController::class, "showPost"])->name("viewPost");
+// Route::get('/post/{slug}', [BlogController::class, "showPost"])->name("viewPost");
 
-Route::get('/blogs', [BlogController::class, "index"]);
-Route::get('/blogs/recommended', [BlogController::class, "recommended"]);
+// Route::get('/blogs', [BlogController::class, "index"]);
+// Route::get('/blogs/recommended', [BlogController::class, "recommended"]);
+
+Route::resource("posts", "App\Http\Controllers\PostsController")->parameters(["posts" => "slug"]);

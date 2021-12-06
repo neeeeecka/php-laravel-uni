@@ -13,7 +13,7 @@
                 <h1 class="card-title">{{ $title }}</h1>
             </header>
             <a href="post-image.html">
-                <img class="card-img" src="/storage/images/{{ $image }}" alt="">
+                <img class="card-img" src="/storage/images/{{ $image }}" alt="no img sry">
             </a>
             <div class="card-body">
                 {{ $body }}

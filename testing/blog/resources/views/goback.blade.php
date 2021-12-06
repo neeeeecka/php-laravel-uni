@@ -1,1 +1,1 @@
-<a class="navbar-brand" href="/blog">Go back to Blog</a>
+<a class="navbar-brand" href="{{ route('posts.index') }}">Go back to Blog</a>
