@@ -4,6 +4,8 @@
 
 @section('content')
     <div class="col-md-9">
+        <h1>Creating</h1>
+
         <form action="{{ route('posts.store') }}" method="POST">
             @csrf
             <div class="mb-3">
