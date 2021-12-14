@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-slate-100 px-52 py-20;
+}
+
+.todos {
+    @apply bg-white 
+    shadow-md
+    p-4 
+    rounded-sm;
+    &__row {
+        @apply flex mb-2;
+        &--last {
+            @apply justify-end mt-2 mb-0 pt-2 border-t-2 border-gray-100;
+        }
+    }
+    &__input {
+        @apply transition-all 
+        duration-150 
+        flex-1 
+        mr-2 
+        outline-none 
+        border-2 
+        p-2 
+        box-border 
+        rounded 
+        focus:border-indigo-500
+        text-sm;
+    }
+    &__addButton {
+        @apply bg-indigo-600 hover:outline-indigo-300;
+    }
+    &__deleteButton {
+        @apply bg-red-400 hover:outline-red-300;
+    }
+    &__container {
+        @apply mt-8;
+    }
+    &__item {
+        @apply border-t-2 border-gray-100 flex;
+        &__text {
+            @apply text-gray-700 py-3;
+        }
+    }
+}
+
+.button {
+    @apply transition-all 
+        duration-150 
+        justify-self-end 
+        disabled:bg-gray-500 
+        text-white 
+        custom-outline
+        py-3
+        px-2
+        rounded
+        text-sm;
+}
+
+.custom-outline {
+    @apply outline outline-4;
+}
+
+button[disabled] {
+    @apply text-gray-200 outline-none;
+}
