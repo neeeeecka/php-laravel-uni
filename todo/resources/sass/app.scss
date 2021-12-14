@@ -45,7 +45,7 @@ body {
         @apply mt-8;
     }
     &__item {
-        @apply border-t-2 border-gray-100 flex items-center cursor-pointer;
+        @apply border-t-2 border-gray-100 flex items-center cursor-pointer p-2;
         &:hover {
             @apply bg-gray-200;
         }

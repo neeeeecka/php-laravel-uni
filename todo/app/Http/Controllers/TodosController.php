@@ -14,7 +14,7 @@ class TodosController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Todo::orderBy("id", "desc")->get();
 
         return view("pages.main", [
             "todos" => $todos
@@ -48,8 +48,8 @@ class TodosController extends Controller
             "text" => $all["text"]
         ];
         
-        Todo::create($data);
-        var_dump($data);
+        $newTodo = Todo::create($data);
+        return $newTodo;
         // $slug = [
         //     "slug" => strtolower(str_replace(" ", "-", $request->input("title")))
         // ];

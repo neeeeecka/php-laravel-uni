@@ -6761,6 +6761,7 @@ body {
   border-top-width: 2px;
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
+  padding: 0.5rem;
 }
 .todos__item:hover {
   --tw-bg-opacity: 1;

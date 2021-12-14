@@ -22,7 +22,19 @@
                 დამატება</button>
         </div>
         <div class="todos__container">
-            @include("components.todo", $todos)
+
+            @include("components.todo", [
+            "id" => -1,
+            "text" => "",
+            "noref" => true
+            ])
+
+            @for ($i = 0; $i < count($todos); $i++)
+                @php
+                    $todo = $todos[$i];
+                @endphp
+                @include("components.todo", $todo)
+            @endfor
         </div>
         <div class="todos__row todos__row--last">
             <button class="button todos__delete-button" v-on:click="onDelete">
@@ -44,7 +56,8 @@
         setup() {
             const addButtonRef = ref(null);
             const inputValue = ref("");
-            const todos = ref(Array({{ '1' }}).fill(null));
+            const todos = ref({});
+            const localTodos = ref([]);
             const isAdding = ref(false);
 
             //LARAVEL CSRF TOKEN INSERTED FROM SERVER
@@ -72,6 +85,12 @@
                     }),
                 });
                 if (result.ok) {
+
+                    const response = await result.json();
+                    const newTodos = [...localTodos.value, response];
+                    newTodos.sort((a, b) => b.id - a.id);
+                    localTodos.value = newTodos;
+
                     inputValue.value = "";
                 }
                 isAdding.value = false;
@@ -94,7 +113,8 @@
                 todos,
                 inputValue,
                 CSRF_TOKENREF,
-                isAdding
+                isAdding,
+                localTodos
             };
         }
     });
