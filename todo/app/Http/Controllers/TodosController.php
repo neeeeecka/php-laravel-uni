@@ -39,7 +39,7 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             "text" => "required",
         ]); 
 
@@ -50,13 +50,7 @@ class TodosController extends Controller
         
         $newTodo = Todo::create($data);
         return $newTodo;
-        // $slug = [
-        //     "slug" => strtolower(str_replace(" ", "-", $request->input("title")))
-        // ];
-        // Blog::create($request->all() + $slug);
-        
-        // return redirect()->route("todos.index")->with("success", "Todo has been added");
-    }
+  }
 
     /**
      * Display the specified resource.
@@ -89,14 +83,14 @@ class TodosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //     $validatedData = $request->validate([
-        //     "title" => "required",
-        //     "body" => "required",
-        // ]);
+        $validatedData = $request->validate([
+            "is_done" => "required",
+        ]); 
 
-        // Blog::where("slug", $slug)->update($validatedData);
+        Todo::find($id)->update($validatedData);
+        $todo = Todo::find($id);
+        return $todo;
 
-        // return redirect("/posts")->with("success", "Post has been updated");
     }
 
     /**
@@ -108,5 +102,18 @@ class TodosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Soft delete all is_done todos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAll(Request $request){
+        $validatedData = $request->validate([
+            "really" => "required",
+        ]); 
+        Todo::where("is_done", true)->delete();
+        return Todo::withTrashed()->where("is_done", true)->get();
     }
 }

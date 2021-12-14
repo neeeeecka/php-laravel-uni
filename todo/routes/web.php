@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [TodosController::class, "index"]);
 
 Route::resource("todos", "App\Http\Controllers\TodosController");
+Route::delete('todos', [TodosController::class, "deleteAll"]);

@@ -37,7 +37,7 @@
             @endfor
         </div>
         <div class="todos__row todos__row--last">
-            <button class="button todos__delete-button" v-on:click="onDelete">
+            <button class="button todos__delete-button" v-on:click="onDelete" :disabled="isDeleting">
                 <i class="fas fa-trash button__icon"></i>
                 <span class="button__text">შესრულებული დავალების წაშლა</span>
             </button>
@@ -64,6 +64,8 @@
             const localTodos = ref({});
 
             const isAdding = ref(false);
+            const isDeleting = ref(false);
+
 
             //LARAVEL CSRF TOKEN INSERTED FROM SERVER
             const CSRF_TOKENREF = ref("{{ csrf_token() }}");
@@ -80,7 +82,6 @@
 
 
             const addTodo = (todo, where) => {
-
                 where.value[todo.id] = todo;
             }
 
@@ -93,8 +94,31 @@
                 }
             };
 
-            const onDelete = () => {
-                console.log("Ondelete")
+            const onDelete = async () => {
+                console.log("Ondelete");
+                isDeleting.value = true;
+                const result = await fetch("todos", {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        _token: CSRF_TOKENREF.value,
+                        really: true,
+                    }),
+                });
+                isDeleting.value = false;
+                if (result.ok) {
+                    const deleted = await result.json();
+                    deleted.forEach(item => {
+                        if (tempTodos.value[item.id]) {
+                            tempTodos.value[item.id].el.remove();
+                        } else if (localTodos.value[item.id]) {
+                            delete localTodos.value[item.id];
+                        }
+                    });
+                }
+
             };
             const onAdd = async () => {
                 console.log("On add");
@@ -119,13 +143,30 @@
                 isAdding.value = false;
 
             };
-            const onTaskDone = (itemId) => {
+            const onTaskDone = async (itemId) => {
+
+                console.log(itemId);
+
+                let is_done = false;
+
                 if (localTodos.value[itemId]) {
-                    localTodos.value[itemId].is_done = !localTodos.value[itemId].is_done;
+                    is_done = !localTodos.value[itemId].is_done;
+                    localTodos.value[itemId].is_done = is_done;
                 } else {
-                    console.log(itemId, !tempTodos.value[itemId].is_done);
-                    tempTodos.value[itemId].is_done = !tempTodos.value[itemId].is_done;
+                    is_done = !tempTodos.value[itemId].is_done;
+                    tempTodos.value[itemId].is_done = is_done;
                 }
+
+                const result = await fetch(`todos/${itemId}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        _token: CSRF_TOKENREF.value,
+                        is_done: is_done,
+                    }),
+                });
 
             };
 
@@ -152,6 +193,7 @@
                 inputValue,
                 CSRF_TOKENREF,
                 isAdding,
+                isDeleting
 
             };
         }
