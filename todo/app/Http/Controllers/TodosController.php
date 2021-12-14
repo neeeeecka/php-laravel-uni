@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class TodosController extends Controller
@@ -13,9 +14,10 @@ class TodosController extends Controller
      */
     public function index()
     {
-       
+        $todos = Todo::all();
+
         return view("pages.main", [
-            // "posts" => $posts
+            "todos" => $todos
         ]);
     }
 
@@ -37,16 +39,23 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        //  $request->validate([
-        //     "title" => "required",
-        //     "body" => "required",
-        // ]);
+         $request->validate([
+            "text" => "required",
+        ]); 
+
+        $all = $request->all();
+        $data = [
+            "text" => $all["text"]
+        ];
+        
+        Todo::create($data);
+        var_dump($data);
         // $slug = [
         //     "slug" => strtolower(str_replace(" ", "-", $request->input("title")))
         // ];
         // Blog::create($request->all() + $slug);
         
-        // return redirect()->route("posts.index")->with("success", "Post has been added");
+        // return redirect()->route("todos.index")->with("success", "Todo has been added");
     }
 
     /**

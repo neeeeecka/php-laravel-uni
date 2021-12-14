@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
 body {
     @apply bg-slate-100 px-52 py-20;
 }
@@ -30,19 +35,28 @@ body {
         focus:border-indigo-500
         text-sm;
     }
-    &__addButton {
+    &__add-button {
         @apply bg-indigo-600 hover:outline-indigo-300;
     }
-    &__deleteButton {
+    &__delete-button {
         @apply bg-red-400 hover:outline-red-300;
     }
     &__container {
         @apply mt-8;
     }
     &__item {
-        @apply border-t-2 border-gray-100 flex;
+        @apply border-t-2 border-gray-100 flex items-center cursor-pointer;
+        &:hover {
+            @apply bg-gray-200;
+        }
         &__text {
-            @apply text-gray-700 py-3;
+            @apply text-gray-700 py-3 flex-1;
+        }
+        &--done {
+            @apply line-through;
+        }
+        .checkbox {
+            @apply justify-self-end;
         }
     }
 }
@@ -58,12 +72,43 @@ body {
         px-2
         rounded
         text-sm;
+    &__icon {
+        margin-right: 5px;
+    }
 }
 
 .custom-outline {
     @apply outline outline-4;
 }
+.checkbox {
+    @apply rounded-full 
+    relative
+    flex border-2 
+    border-indigo-300 
+    w-7 h-7 
+    items-center 
+    justify-center
+    cursor-pointer
+    p-0.5;
 
-button[disabled] {
+    &__inner {
+        @apply w-full h-full rounded-full flex justify-center items-center bg-indigo-300 text-transparent;
+
+        &__mark {
+        }
+    }
+    &:hover {
+        .checkbox__inner {
+            @apply bg-indigo-400;
+        }
+    }
+    &--selected {
+        @apply bg-indigo-500;
+        .checkbox__inner {
+            @apply text-white bg-transparent;
+        }
+    }
+}
+.button[disabled] {
     @apply text-gray-200 outline-none;
 }
