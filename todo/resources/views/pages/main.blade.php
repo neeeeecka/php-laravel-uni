@@ -51,21 +51,46 @@
     const {
         onMounted,
         ref,
+        computed,
     } = Vue;
     const app = Vue.createApp({
         setup() {
             const addButtonRef = ref(null);
             const inputValue = ref("");
-            const todos = ref({});
-            const localTodos = ref([]);
+            // const todos = ref({});
+            const length = ref({{ count($todos) }});
+
+            const tempTodos = ref({});
+            const localTodos = ref({});
+
             const isAdding = ref(false);
 
             //LARAVEL CSRF TOKEN INSERTED FROM SERVER
             const CSRF_TOKENREF = ref("{{ csrf_token() }}");
             //----------------------------------------
 
-            const addTodoRef = (index, el) => {
-                todos.value[index] = el;
+            const makeTodo = (id, text, is_done, el) => {
+                return {
+                    id,
+                    text,
+                    is_done,
+                    el
+                };
+            };
+
+
+            const addTodo = (todo, where) => {
+
+                where.value[todo.id] = todo;
+            }
+
+            const initTodoRef = (id, text, is_done, el) => {
+                if (tempTodos.value[id] == undefined) {
+                    const todo = makeTodo(id, text, is_done, el);
+                    addTodo(todo, tempTodos);
+                } else {
+                    // console.log("Tried to add existing");
+                }
             };
 
             const onDelete = () => {
@@ -87,9 +112,7 @@
                 if (result.ok) {
 
                     const response = await result.json();
-                    const newTodos = [...localTodos.value, response];
-                    newTodos.sort((a, b) => b.id - a.id);
-                    localTodos.value = newTodos;
+                    addTodo(response, localTodos);
 
                     inputValue.value = "";
                 }
@@ -97,24 +120,39 @@
 
             };
             const onTaskDone = (itemId) => {
-                console.log("On task done", itemId)
+                if (localTodos.value[itemId]) {
+                    localTodos.value[itemId].is_done = !localTodos.value[itemId].is_done;
+                } else {
+                    console.log(itemId, !tempTodos.value[itemId].is_done);
+                    tempTodos.value[itemId].is_done = !tempTodos.value[itemId].is_done;
+                }
+
             };
 
             onMounted(() => {
                 console.log("Mounted");
             });
 
+            const todos = computed(() => {
+                const newArr = Object.keys(localTodos.value).map((key) => localTodos.value[key]).sort((
+                    a,
+                    b) => b.id - a.id);
+                return newArr;
+            });
+
+
             return {
                 addButtonRef,
-                addTodoRef,
+                initTodoRef,
                 onDelete,
                 onAdd,
                 onTaskDone,
                 todos,
+                tempTodos,
                 inputValue,
                 CSRF_TOKENREF,
                 isAdding,
-                localTodos
+
             };
         }
     });

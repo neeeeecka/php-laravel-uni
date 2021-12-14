@@ -6765,7 +6765,7 @@ body {
 }
 .todos__item:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 .todos__item__text {
   flex: 1 1 0%;
@@ -6774,8 +6774,17 @@ body {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
-.todos__item--done {
+.todos__item--done .todos__item__text {
   text-decoration: line-through;
+}
+.todos__item--done .checkbox {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+}
+.todos__item--done .checkbox .checkbox__inner {
+  background-color: transparent;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .todos__item .checkbox {
   justify-self: end;
@@ -6841,23 +6850,12 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(129 140 248 / var(--tw-bg-opacity));
 }
-.checkbox--selected {
-  --tw-bg-opacity: 1;
-  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
-}
-.checkbox--selected .checkbox__inner {
-  background-color: transparent;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .button[disabled] {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
-
 @media (prefers-color-scheme: dark) {
 
   .dark\:border-gray-700 {
@@ -6890,7 +6888,6 @@ body {
     color: rgb(156 163 175 / var(--tw-text-opacity));
   }
 }
-
 @media (min-width: 640px) {
 
   .sm\:ml-0 {
@@ -6938,7 +6935,6 @@ body {
     text-align: right;
   }
 }
-
 @media (min-width: 768px) {
 
   .md\:grid-cols-2 {
@@ -6953,7 +6949,6 @@ body {
     border-left-width: 1px;
   }
 }
-
 @media (min-width: 1024px) {
 
   .lg\:px-8 {

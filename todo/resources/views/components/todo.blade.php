@@ -1,6 +1,9 @@
 @if (isset($noref))
-    <div class="todos__item" v-for="todo in localTodos" v-bind:ref="(ref)=>addTodoRef(todo.id, ref)"
-        v-on:click="onTaskDone(todo.id)">
+    <div v-bind:class="{
+        'todos__item': true,
+        'todos__item--done': todo.is_done,
+    }"
+        v-for="todo in todos" v-on:click="onTaskDone(todo.id)">
         <span class="todos__item__text">
             <?php
             echo '{{todo.text}}';
@@ -13,7 +16,14 @@
         </span>
     </div>
 @else
-    <div class="todos__item" v-bind:ref="(ref)=>addTodoRef({{ $id }}, ref)"
+    <?php
+    
+    ?>
+    <div v-bind:class="{
+        'todos__item': true,
+        'todos__item--done': tempTodos['{{ $id }}'] ? tempTodos['{{ $id }}'].is_done : false,
+    }"
+        v-bind:ref="(ref)=>initTodoRef({{ $id }}, '{{ $text }}', {{ $is_done }}, ref)"
         v-on:click="onTaskDone({{ $id }})">
         <span class="todos__item__text">
             {{ $text }}

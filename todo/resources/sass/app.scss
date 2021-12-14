@@ -47,13 +47,21 @@ body {
     &__item {
         @apply border-t-2 border-gray-100 flex items-center cursor-pointer p-2;
         &:hover {
-            @apply bg-gray-200;
+            @apply bg-gray-50;
         }
         &__text {
             @apply text-gray-700 py-3 flex-1;
         }
         &--done {
-            @apply line-through;
+            .todos__item__text {
+                @apply line-through;
+            }
+            .checkbox {
+                @apply bg-indigo-500;
+                .checkbox__inner {
+                    @apply text-white bg-transparent;
+                }
+            }
         }
         .checkbox {
             @apply justify-self-end;
@@ -103,10 +111,6 @@ body {
         }
     }
     &--selected {
-        @apply bg-indigo-500;
-        .checkbox__inner {
-            @apply text-white bg-transparent;
-        }
     }
 }
 .button[disabled] {
