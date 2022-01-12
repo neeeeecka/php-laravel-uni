@@ -26,6 +26,9 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "browser-sync": "^2.27.7",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "datamaps": "^0.5.9",
         "vue3-select2-component": "^0.1.7"
     }
 }

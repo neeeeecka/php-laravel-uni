@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,5 +30,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get("/countries", [App\Http\Controllers\CountriesController::class, "index"]);
+
+// Route::get("/dev", function(Request $request){
+
+// })->middleware(['auth', 'verified']);
+
+
 
 require __DIR__.'/auth.php';
