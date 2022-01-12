@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Countries;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CountryController extends Controller
 {
@@ -43,7 +44,7 @@ class CountryController extends Controller
 
         $hasCountry = $user->visitedCountries()->find($countryId);
         if($hasCountry){
-            return ["status" => "fail"];
+            return Response::json(["status" => "fail"], 418);
         }else{
             
             // Remove country from planned countries
@@ -63,7 +64,7 @@ class CountryController extends Controller
         $hasCountry = $user->toVisitCountries()->find($countryId);
         
         if($hasCountry){
-            return ["status" => "fail"];
+            return response()->json(["status" => "fail"], 418);
         }else{
             
             // Remove country from already visited countries
