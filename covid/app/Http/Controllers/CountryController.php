@@ -23,6 +23,7 @@ class CountryController extends Controller
 
     /**
      * Returns list of all countries saved in databse for select2 requests
+     * @return JSON ["results" => ...]
      */
     public function list(Request $request){
       return ["results" => $this->mapper(Country::where("name", "like", "%".$request->input("term")."%")->take(20)->get())];
@@ -30,15 +31,17 @@ class CountryController extends Controller
 
     /**
     * Returns list of countries that user has selected
+    * @return JSON 
     */
     public function selectedCountries(Request $request){
         return $this->mapper($request->user()->selectedCountries()->get());
     }
 
     /**
-    * Adds new country that user has added
-    * Fails if country doesn't exist in database
-    * Fails if user already has country added
+    * Adds new country that user has added,
+    * Fails if country doesn't exist in database,
+    * Fails if user already has country added,
+    * @return JSON returns ['status': 'success'] or ['status': 'fail'] as json
     */
     public function addSelectedCountry(Request $request){
         $user = $request->user();
@@ -58,8 +61,9 @@ class CountryController extends Controller
     }
 
     /**
-    * Removes country that user has removed
+    * Removes country that user has removed,
     * Fails if country doesn't exist in database
+    * @return JSON returns ['status': 'success']
     */
     public function removeSelectedCountry(Request $request){
         $user = $request->user();
