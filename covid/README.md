@@ -2,6 +2,8 @@ Demo video: vid.mp4
 
 Features:
 
+ფუნქციებს კონტროლერებში არ მოვაკელი რეთურნ ტიპები და კომენტარები
+
 login/register
 
 select country for covid stats
