@@ -14,5 +14,5 @@ see countries on datamap
 
 see world covid stats
 
-![alt text](https://raw.githubusercontent.com/neeeeecka/php-laravel-uni/master/covid/pic1.PNG)
+![alt text](https://github.com/neeeeecka/php-laravel-uni/blob/master/covid/pic1.png)
 
