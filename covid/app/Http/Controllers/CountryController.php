@@ -21,14 +21,25 @@ class CountryController extends Controller
         );
     }
 
+    /**
+     * Returns list of all countries saved in databse for select2 requests
+     */
     public function list(Request $request){
       return ["results" => $this->mapper(Country::where("name", "like", "%".$request->input("term")."%")->take(20)->get())];
     }
 
+    /**
+    * Returns list of countries that user has selected
+    */
     public function selectedCountries(Request $request){
         return $this->mapper($request->user()->selectedCountries()->get());
     }
 
+    /**
+    * Adds new country that user has added
+    * Fails if country doesn't exist in database
+    * Fails if user already has country added
+    */
     public function addSelectedCountry(Request $request){
         $user = $request->user();
         $countryId = $request->input("country_id");
@@ -46,6 +57,10 @@ class CountryController extends Controller
         }
     }
 
+    /**
+    * Removes country that user has removed
+    * Fails if country doesn't exist in database
+    */
     public function removeSelectedCountry(Request $request){
         $user = $request->user();
         $countryExists = Country::findOrFail($request->country_id);
